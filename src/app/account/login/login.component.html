@@ -1,0 +1,44 @@
+<h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl py-12">
+    Please log in or create an account.
+</h1>
+
+<form class="my-6" (ngSubmit)="onSubmit()" #form="ngForm">
+
+    <div class="flex flex-col text-sm mb-12">
+        <label class="font-bold mb-2 text-grey-800">Username</label>
+        <input 
+            class="appearence-none shadow-sm border border-gray-200 
+                   focus:outline-none focus:border-gray-500 rounded-lg p-2" 
+            type="username" name="username"  id="username" 
+            [(ngModel)]="login.username" required 
+        />
+    </div>
+    
+    <div class="flex flex-col text-sm mb-12">
+        <label class="font-bold mb-2 text-grey-800">Password</label>
+        <input 
+            class="appearence-none shadow-sm border border-gray-200 
+                   focus:outline-none focus:border-gray-500 rounded-lg p-2" 
+            type="password" name="password"  id="password" 
+            [(ngModel)]="login.password" required 
+        />
+    </div>
+
+    <div class="flex justify-between">
+        <button 
+            class="w-4/12 shadow-sm rounded  text-white py-2 px-4"
+            [ngClass]="form.form.invalid ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'"
+            type="submit" [disabled]="form.form.invalid"
+        >
+            Log in
+        </button>
+        <button 
+            class="w-4/12 shadow-sm rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+            type="button"
+            [routerLink]="['/create-account']"
+        >
+            Create account
+        </button>
+    </div>
+    
+</form>

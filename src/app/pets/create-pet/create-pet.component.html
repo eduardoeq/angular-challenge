@@ -1,0 +1,90 @@
+<h1 class="text-2xl font-bold text-center text-gray-800 md:text-3xl py-12">
+    Create a pet.
+</h1>
+
+<form class="my-6" (ngSubmit)="onSubmit()" #form="ngForm">
+
+    <div class="flex flex-col text-sm mb-12">
+        <label class="font-bold mb-2 text-grey-800">Pet name<span class="text-red-500"> *</span></label>
+        <input 
+            class="appearence-none shadow-sm border border-gray-200 
+                   focus:outline-none focus:border-gray-500 rounded-lg p-2" 
+            type="username" name="username"  id="username-input"
+            [(ngModel)]="pet.name" required 
+        />
+    </div>
+    
+    <div class="flex flex-col text-sm mb-12">
+        <label class="font-bold mb-2 text-grey-800">Photo URLs<span class="text-red-500"> *</span></label> 
+        <span 
+            class="flex items-center justify-between"
+            *ngFor="let photoUrl of pet.photoUrls; let i = index; trackBy: trackByPetId"
+        >
+            <input 
+                class="w-full appearence-none shadow-sm border border-gray-200 
+                    focus:outline-none focus:border-gray-500 rounded-lg p-2 mb-4" 
+                type="photoUrl" name="photoUrl{{i}}"  id="photo-url-input-{{i}}" 
+                [(ngModel)]="pet.photoUrls[i]" required 
+            />
+            <span *ngIf="pet.photoUrls.length > 1">
+                <button 
+                    class="shadow-sm rounded  text-white py-2 px-4 ml-4 mb-4 bg-red-500 hover:bg-red-600"
+                    (click)="deletePhotoUrl(i)" id="delete-photo-button-{{i}}"
+                    type="button"
+                >
+                    Delete
+                </button>
+            </span>
+        </span>
+        <button 
+            class="w-full shadow-sm rounded  text-white py-2 px-4 bg-blue-500 hover:bg-blue-600"
+            (click)="addPhotoUrl()"
+            *ngIf="pet.photoUrls.length < 5"
+            type="button" id="add-photo-button"
+        >
+            Add photo URL
+        </button>
+        
+    </div>
+
+     <div class="flex flex-col text-sm mb-12">
+        <label class="font-bold text-grey-800">Status<span class="text-red-500"> *</span></label>
+        <ul 
+            class="flex items-center justify-center w-full text-sm font-medium py-2 my-4 
+                   shadow-sm border border-gray-200 focus:outline-none focus:border-gray-500 rounded-lg"
+        >
+            <li 
+                *ngFor="let status of statusOptions"
+                class="w-full"
+            >
+                <div 
+                    class="table text-xl align-text-top m-auto p-3" 
+                    (click)="setActiveStatus(status)"
+                >
+                    <label
+                        class="py-3 ml-2 w-full text-sm font-medium text-grey-800 capitalize"
+                    >
+                        <input 
+                            class="align-text-bottom w-4 h-4 mr-2 text-blue-600 bg-gray-100 
+                                border-gray-300 focus:ring-blue-500  focus:ring-2"
+                            id="{{ status }}" type="radio" name="list-radio" 
+                            value="{{ status }}" [checked]="pet.status == status"
+                        />
+                        {{ status }}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="flex justify-between">
+        <button 
+            class="w-full shadow-sm rounded  text-white py-2 px-4"
+            [ngClass]="form.form.invalid ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'"
+            type="submit" [disabled]="!validateForm()" id="create-pet-button"
+        >
+            Create Pet
+        </button>
+    </div>
+    
+</form>

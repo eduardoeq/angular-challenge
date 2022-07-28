@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>{{pet.name}}</h1>
+<div mat-dialog-content>
+    
+    <p *ngIf="pet.id">
+        ID: <span class="font-bold">{{pet.id}}</span> 
+    </p>
+
+    <p *ngIf="pet.status">
+        Status: <span class="font-bold">{{pet.status}}</span> 
+    </p>
+
+    <p *ngIf="pet.tags">
+        <span 
+            class="flex flex-col"
+            *ngFor="let tag of pet.tags; let i = index"
+        >
+            <span *ngIf="tag.name">
+                Tag {{i + 1}}: <span class="font-bold">{{tag.name}}</span> 
+            </span>
+        </span>
+    </p>
+
+    <p *ngIf="pet.category && pet.category.name">
+        Category: <span class="font-bold">{{pet.category.name}}</span> 
+    </p>
+
+    <p>Pictures:</p>
+    <span 
+        class="flex flex-wrap justify-between"
+        *ngIf="pet.photoUrls" 
+    > 
+        <img 
+            *ngFor="let photoUrl of pet.photoUrls; let i = index;"
+            [src]="photoUrl" alt="{{ pet.name }}" 
+            (error) ="setPlaceholderImg(i)"
+            class="h-24 w-24 border m-1 p-1 border-gray-300 object-cover"
+        />
+    </span>
+
+</div>
+<div class="my-2" mat-dialog-actions>
+  <button 
+    class="w-full"
+    mat-button 
+    [mat-dialog-close]="pet.name" 
+    cdkFocusInitial
+>
+    Ok
+</button>
+</div>

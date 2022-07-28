@@ -1,0 +1,23 @@
+<nav class="my-12 py-5 w-full grid grid-cols-4 justify-center">
+    <a 
+        class="mx-4 text-lg"  
+        [ngClass]="pageRoute == '/list' ? 'font-semibold text-blue-600' : ''" 
+        [routerLink]="['/list']"
+    >
+        List Pets
+    </a>
+    <a 
+        class="mx-4 text-lg"  
+        [ngClass]="pageRoute == '/create-pet' ? 'font-semibold text-blue-600' : ''" 
+        [routerLink]="['/create-pet']"
+    >
+        Create Pet
+    </a>
+    <div class="col-span-1"></div>
+    <button 
+        class="shadow-sm bg-blue-500 hover:bg-blue-600 text-white rounded py-1 px-2"
+        (click)="logout()"
+    >
+        Log out
+    </button>
+</nav>
